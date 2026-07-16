@@ -92,11 +92,13 @@ header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
 .couple{display:flex;align-items:center;gap:3px}
 .marry{font-size:13px;color:var(--gold);padding:0 2px;user-select:none}
 .kids{display:flex;align-items:flex-start;gap:12px;margin-top:34px}
-.node{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:3px;width:96px;padding:9px 6px 8px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);transition:border-color .15s,transform .1s;text-align:center}
+.node{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:3px;width:104px;padding:9px 6px 8px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);transition:border-color .15s,transform .1s;text-align:center}
 .node:active{transform:scale(.97)}
 .node .nm{font-family:var(--hanzi);font-weight:500;font-size:15px;line-height:1.3;white-space:nowrap}
+.node .pyname{font-family:var(--mono);font-size:9.5px;color:var(--ink-soft);line-height:1.2;white-space:nowrap}
 .node .meta{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint)}
 .node .term{font-size:12.5px;font-weight:600;color:var(--cinnabar);font-family:var(--hanzi);line-height:1.3;min-height:18px}
+.node .termpy{font-family:var(--mono);font-size:9.5px;color:var(--cinnabar);line-height:1.2;min-height:12px}
 .node .term.dim{color:var(--ink-faint);font-family:var(--mono);font-weight:400}
 .node.sel{border-color:var(--cinnabar);box-shadow:0 0 0 1px var(--cinnabar)}
 .node.viewer{background:var(--cinnabar-tint);border-color:var(--cinnabar)}
@@ -117,10 +119,9 @@ header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
 .opt{padding:14px 10px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);text-align:center;transition:border-color .12s,transform .1s}
 .opt:active{transform:scale(.98)}
 .opt .hz{font-family:var(--hanzi);font-weight:500;font-size:24px;display:block}
-.opt .py{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);display:block;margin-top:2px;visibility:hidden}
+.opt .py{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);display:block;margin-top:2px}
 .opt.right{border-color:var(--celadon);background:var(--celadon-tint)}
 .opt.wrong{border-color:var(--cinnabar);background:var(--cinnabar-tint)}
-.opt.right .py,.opt.wrong .py{visibility:visible}
 .opt:disabled{cursor:default}
 .qfoot{display:flex;align-items:center;justify-content:space-between;margin-top:18px;gap:10px;flex-wrap:wrap}
 .qmsg{font-size:14.5px;min-height:22px}
@@ -167,7 +168,7 @@ footer .fin{font-family:var(--mono);font-size:12px;color:var(--ink-faint);text-a
   <div class="viewerbar">
     <span class="vchip"><span class="lbl">视角 VIEWING AS</span><span class="nm" id="viewerName"></span></span>
     <button class="resetbtn" id="resetBtn" onclick="setViewer('you')" hidden>回到我 back to me</button>
-    <span class="gsel">你 you are:
+    <span class="gsel">你 nǐ · you are:
       <span class="persp">
         <button id="gM" onclick="setGender('m')">男 ♂</button>
         <button id="gF" onclick="setGender('f')">女 ♀</button>
@@ -185,11 +186,11 @@ footer .fin{font-family:var(--mono);font-size:12px;color:var(--ink-faint);text-a
         <div class="forest" id="forest"></div>
       </div>
     </div>
-    <p class="scrollhint">← scroll · 陈家 the Tans (paternal) · 林家 the Lims (maternal) →</p>
+    <p class="scrollhint">← scroll · 陈家 Chénjiā, the Tans (paternal) · 林家 Línjiā, the Lims (maternal) →</p>
   </div>
   <div class="legend">
     <span><span class="sw"></span>parent–child</span>
-    <span><span class="sw dash"></span>林丽华 is also the Lims' daughter</span>
+    <span><span class="sw dash"></span>林丽华 Lín Lìhuá is also the Lims' daughter</span>
     <span>⚭ married</span>
   </div>
 </main>
@@ -201,7 +202,7 @@ footer .fin{font-family:var(--mono);font-size:12px;color:var(--ink-faint);text-a
     <span>answered <b id="answered">0</b></span>
   </div>
   <div class="quiz">
-    <p class="qlabel">From your viewpoint (陈家乐)</p>
+    <p class="qlabel">From your viewpoint (陈家乐 Chén Jiālè)</p>
     <p class="question" id="qText"></p>
     <div class="opts" id="qOpts"></div>
     <div class="qfoot">
@@ -215,19 +216,19 @@ footer .fin{font-family:var(--mono);font-size:12px;color:var(--ink-faint);text-a
   <div class="rules">
     <div class="rulecard">
       <h3>Same person, different name</h3>
-      <p>Titles aren't properties of a person — they're properties of a <em>relationship</em>. Your <span class="zh-inline">妈妈</span> is somebody's <span class="zh-inline">婶婶</span>, somebody's <span class="zh-inline">舅妈</span>, somebody's <span class="zh-inline">小姑子</span> and somebody's <span class="zh-inline">儿媳</span>, all at the same dinner table. Tap "see the tree as…" on anyone to feel this.</p>
+      <p>Titles aren't properties of a person — they're properties of a <em>relationship</em>. Your <span class="zh-inline">妈妈</span> (māma) is somebody's <span class="zh-inline">婶婶</span> (shěnshen), somebody's <span class="zh-inline">舅妈</span> (jiùmā), somebody's <span class="zh-inline">小姑子</span> (xiǎogūzi) and somebody's <span class="zh-inline">儿媳</span> (érxí), all at the same dinner table. Tap "see the tree as…" on anyone to feel this.</p>
     </div>
     <div class="rulecard">
-      <h3><span class="hz">堂</span> vs <span class="hz">表</span> — follow the surname</h3>
-      <p>Only your father's <em>brothers'</em> children are <span class="zh-inline">堂</span> cousins — notice they're the only cousins surnamed <span class="zh-inline">陈</span> like you. Everyone else — <span class="zh-inline">姑姑</span>'s daughter (a <span class="zh-inline">吴</span>!) and all the cousins on your mum's side — is a <span class="zh-inline">表</span> cousin.</p>
+      <h3><span class="hz">堂</span> táng vs <span class="hz">表</span> biǎo — follow the surname</h3>
+      <p>Only your father's <em>brothers'</em> children are <span class="zh-inline">堂</span> (táng) cousins — notice they're the only cousins surnamed <span class="zh-inline">陈</span> (Chén) like you. Everyone else — <span class="zh-inline">姑姑</span> (gūgu)'s daughter (a <span class="zh-inline">吴</span> Wú!) and all the cousins on your mum's side — is a <span class="zh-inline">表</span> (biǎo) cousin.</p>
     </div>
     <div class="rulecard">
       <h3>Number them by seniority</h3>
-      <p>With several uncles or aunts of the same type, rank them by age: <span class="zh-inline">大伯、二伯、三叔</span>, <span class="zh-inline">大舅、二舅</span>. The eldest is <span class="zh-inline">大</span>, then <span class="zh-inline">二、三、四</span>…</p>
+      <p>With several uncles or aunts of the same type, rank them by age: <span class="zh-inline">大伯、二伯、三叔</span> (dàbó, èrbó, sānshū), <span class="zh-inline">大舅、二舅</span> (dàjiù, èrjiù). The eldest is <span class="zh-inline">大</span> (dà), then <span class="zh-inline">二、三、四</span> (èr, sān, sì)…</p>
     </div>
     <div class="rulecard">
       <h3>Saying it to their face vs. about them</h3>
-      <p>Terms like <span class="zh-inline">岳父</span>, <span class="zh-inline">大伯子</span> or <span class="zh-inline">儿媳</span> are how you <em>refer</em> to someone (背称). Face to face, parents-in-law are <span class="zh-inline">爸爸 / 妈妈</span>, siblings-in-law get a name or <span class="zh-inline">哥 / 姐</span>, and elders simply call juniors by name.</p>
+      <p>Terms like <span class="zh-inline">岳父</span> (yuèfù), <span class="zh-inline">大伯子</span> (dàbǎizi) or <span class="zh-inline">儿媳</span> (érxí) are how you <em>refer</em> to someone (背称 bèichēng). Face to face, parents-in-law are <span class="zh-inline">爸爸 / 妈妈</span> (bàba / māma), siblings-in-law get a name or <span class="zh-inline">哥 / 姐</span> (gē / jiě), and elders simply call juniors by name.</p>
     </div>
     <div class="rulecard">
       <h3>Dialects layer on top — and vary by family</h3>
@@ -246,42 +247,42 @@ footer .fin{font-family:var(--mono);font-size:12px;color:var(--ink-faint);text-a
 
 /* ---- The family: 陈家 (Tan) × 林家 (Lim) ---- */
 const P = {
-  yeye:    { id:'yeye',    name:'陈金福', gender:'m', age:80, spouse:'nainai' },
-  nainai:  { id:'nainai',  name:'王秀兰', gender:'f', age:78, spouse:'yeye' },
-  waigong: { id:'waigong', name:'林大海', gender:'m', age:76, spouse:'waipo' },
-  waipo:   { id:'waipo',   name:'黄美玉', gender:'f', age:75, spouse:'waigong' },
+  yeye:    { id:'yeye',    name:'陈金福', py:'Chén Jīnfú', gender:'m', age:80, spouse:'nainai' },
+  nainai:  { id:'nainai',  name:'王秀兰', py:'Wáng Xiùlán', gender:'f', age:78, spouse:'yeye' },
+  waigong: { id:'waigong', name:'林大海', py:'Lín Dàhǎi', gender:'m', age:76, spouse:'waipo' },
+  waipo:   { id:'waipo',   name:'黄美玉', py:'Huáng Měiyù', gender:'f', age:75, spouse:'waigong' },
 
-  bobo:    { id:'bobo',    name:'陈志强', gender:'m', age:55, spouse:'bomu',    father:'yeye', mother:'nainai' },
-  bomu:    { id:'bomu',    name:'刘雅婷', gender:'f', age:53, spouse:'bobo' },
-  baba:    { id:'baba',    name:'陈志明', gender:'m', age:50, spouse:'mama',    father:'yeye', mother:'nainai' },
-  mama:    { id:'mama',    name:'林丽华', gender:'f', age:48, spouse:'baba',    father:'waigong', mother:'waipo' },
-  shushu:  { id:'shushu',  name:'陈志伟', gender:'m', age:47, spouse:'shenshen',father:'yeye', mother:'nainai' },
-  shenshen:{ id:'shenshen',name:'张晓芳', gender:'f', age:46, spouse:'shushu' },
-  gugu:    { id:'gugu',    name:'陈美玲', gender:'f', age:44, spouse:'guzhang', father:'yeye', mother:'nainai' },
-  guzhang: { id:'guzhang', name:'吴建国', gender:'m', age:45, spouse:'gugu' },
-  jiujiu:  { id:'jiujiu',  name:'林伟杰', gender:'m', age:52, spouse:'jiuma',   father:'waigong', mother:'waipo' },
-  jiuma:   { id:'jiuma',   name:'郑淑芬', gender:'f', age:50, spouse:'jiujiu' },
-  ayi:     { id:'ayi',     name:'林丽敏', gender:'f', age:45, spouse:'yizhang', father:'waigong', mother:'waipo' },
-  yizhang: { id:'yizhang', name:'许文龙', gender:'m', age:47, spouse:'ayi' },
+  bobo:    { id:'bobo',    name:'陈志强', py:'Chén Zhìqiáng', gender:'m', age:55, spouse:'bomu',    father:'yeye', mother:'nainai' },
+  bomu:    { id:'bomu',    name:'刘雅婷', py:'Liú Yǎtíng', gender:'f', age:53, spouse:'bobo' },
+  baba:    { id:'baba',    name:'陈志明', py:'Chén Zhìmíng', gender:'m', age:50, spouse:'mama',    father:'yeye', mother:'nainai' },
+  mama:    { id:'mama',    name:'林丽华', py:'Lín Lìhuá', gender:'f', age:48, spouse:'baba',    father:'waigong', mother:'waipo' },
+  shushu:  { id:'shushu',  name:'陈志伟', py:'Chén Zhìwěi', gender:'m', age:47, spouse:'shenshen',father:'yeye', mother:'nainai' },
+  shenshen:{ id:'shenshen',name:'张晓芳', py:'Zhāng Xiǎofāng', gender:'f', age:46, spouse:'shushu' },
+  gugu:    { id:'gugu',    name:'陈美玲', py:'Chén Měilíng', gender:'f', age:44, spouse:'guzhang', father:'yeye', mother:'nainai' },
+  guzhang: { id:'guzhang', name:'吴建国', py:'Wú Jiànguó', gender:'m', age:45, spouse:'gugu' },
+  jiujiu:  { id:'jiujiu',  name:'林伟杰', py:'Lín Wěijié', gender:'m', age:52, spouse:'jiuma',   father:'waigong', mother:'waipo' },
+  jiuma:   { id:'jiuma',   name:'郑淑芬', py:'Zhèng Shūfēn', gender:'f', age:50, spouse:'jiujiu' },
+  ayi:     { id:'ayi',     name:'林丽敏', py:'Lín Lìmǐn', gender:'f', age:45, spouse:'yizhang', father:'waigong', mother:'waipo' },
+  yizhang: { id:'yizhang', name:'许文龙', py:'Xǔ Wénlóng', gender:'m', age:47, spouse:'ayi' },
 
-  tangge:  { id:'tangge',  name:'陈俊豪', gender:'m', age:20, father:'bobo',   mother:'bomu',     desc:"your 伯伯's son (older than you)" },
-  jiejie:  { id:'jiejie',  name:'陈慧敏', gender:'f', age:17, father:'baba',   mother:'mama',     desc:'your older sister' },
-  you:     { id:'you',     name:'陈家乐', gender:'m', age:15, father:'baba',   mother:'mama',     desc:'you' },
-  didi:    { id:'didi',    name:'陈家豪', gender:'m', age:12, father:'baba',   mother:'mama',     desc:'your younger brother' },
-  tangmei: { id:'tangmei', name:'陈欣怡', gender:'f', age:10, father:'shushu', mother:'shenshen', desc:"your 叔叔's daughter (younger than you)" },
-  biaojg:  { id:'biaojg',  name:'吴佩琪', gender:'f', age:16, father:'guzhang',mother:'gugu',     desc:"your 姑姑's daughter (older than you)" },
-  biaoge:  { id:'biaoge',  name:'林晓东', gender:'m', age:18, father:'jiujiu', mother:'jiuma',    desc:"your 舅舅's son (older than you)" },
-  biaomei: { id:'biaomei', name:'许恩慈', gender:'f', age:8,  father:'yizhang',mother:'ayi',      desc:"your 阿姨's daughter (younger than you)" },
+  tangge:  { id:'tangge',  name:'陈俊豪', py:'Chén Jùnháo', gender:'m', age:20, father:'bobo',   mother:'bomu',     desc:"your 伯伯 (bóbo)'s son (older than you)" },
+  jiejie:  { id:'jiejie',  name:'陈慧敏', py:'Chén Huìmǐn', gender:'f', age:17, father:'baba',   mother:'mama',     desc:'your older sister' },
+  you:     { id:'you',     name:'陈家乐', py:'Chén Jiālè', gender:'m', age:15, father:'baba',   mother:'mama',     desc:'you' },
+  didi:    { id:'didi',    name:'陈家豪', py:'Chén Jiāháo', gender:'m', age:12, father:'baba',   mother:'mama',     desc:'your younger brother' },
+  tangmei: { id:'tangmei', name:'陈欣怡', py:'Chén Xīnyí', gender:'f', age:10, father:'shushu', mother:'shenshen', desc:"your 叔叔 (shūshu)'s daughter (younger than you)" },
+  biaojg:  { id:'biaojg',  name:'吴佩琪', py:'Wú Pèiqí', gender:'f', age:16, father:'guzhang',mother:'gugu',     desc:"your 姑姑 (gūgu)'s daughter (older than you)" },
+  biaoge:  { id:'biaoge',  name:'林晓东', py:'Lín Xiǎodōng', gender:'m', age:18, father:'jiujiu', mother:'jiuma',    desc:"your 舅舅 (jiùjiu)'s son (older than you)" },
+  biaomei: { id:'biaomei', name:'许恩慈', py:'Xǔ Ēncí', gender:'f', age:8,  father:'yizhang',mother:'ayi',      desc:"your 阿姨 (āyí)'s daughter (younger than you)" },
 };
 /* descs for quiz (relationship to YOU) for gen-0/1 */
 P.yeye.desc="your dad's father"; P.nainai.desc="your dad's mother";
 P.waigong.desc="your mum's father"; P.waipo.desc="your mum's mother";
-P.bobo.desc="your dad's older brother"; P.bomu.desc="your 伯伯's wife";
+P.bobo.desc="your dad's older brother"; P.bomu.desc="your 伯伯 (bóbo)'s wife";
 P.baba.desc="your dad"; P.mama.desc="your mum";
-P.shushu.desc="your dad's younger brother"; P.shenshen.desc="your 叔叔's wife";
-P.gugu.desc="your dad's younger sister"; P.guzhang.desc="your 姑姑's husband";
-P.jiujiu.desc="your mum's older brother"; P.jiuma.desc="your 舅舅's wife";
-P.ayi.desc="your mum's younger sister"; P.yizhang.desc="your 阿姨's husband";
+P.shushu.desc="your dad's younger brother"; P.shenshen.desc="your 叔叔 (shūshu)'s wife";
+P.gugu.desc="your dad's younger sister"; P.guzhang.desc="your 姑姑 (gūgu)'s husband";
+P.jiujiu.desc="your mum's older brother"; P.jiuma.desc="your 舅舅 (jiùjiu)'s wife";
+P.ayi.desc="your mum's younger sister"; P.yizhang.desc="your 阿姨 (āyí)'s husband";
 
 /* ---- DIALECTS: address terms in Singapore/Malaysia usage.
         hk = Hokkien, ct = Cantonese, tc = Teochew, hn = Hainanese.
@@ -326,14 +327,14 @@ const T = {
   '孙女': { py:'sūnnǚ', eng:'son\u2019s daughter', byName:true },
   '外孙': { py:'wàisūn', eng:'daughter\u2019s son', byName:true, note:'Through a daughter — so the 外 comes back.' },
   '外孙女':{ py:'wàisūnnǚ', eng:'daughter\u2019s daughter', byName:true },
-  '哥哥': { py:'gēge', eng:'older brother', note:'Multiple: 大哥, 二哥…' },
-  '姐姐': { py:'jiějie', eng:'older sister', note:'Multiple: 大姐, 二姐…' },
+  '哥哥': { py:'gēge', eng:'older brother', note:'Multiple: 大哥 (dàgē), 二哥 (èrgē)…' },
+  '姐姐': { py:'jiějie', eng:'older sister', note:'Multiple: 大姐 (dàjiě), 二姐 (èrjiě)…' },
   '弟弟': { py:'dìdi', eng:'younger brother', byName:true, note:'Usually just called by name day to day.' },
   '妹妹': { py:'mèimei', eng:'younger sister', byName:true, note:'Usually just called by name day to day.' },
-  '伯伯': { py:'bóbo', eng:'father\u2019s older brother', note:'Several? Rank by age: 大伯, 二伯… Formal: 伯父 (bófù).' },
-  '叔叔': { py:'shūshu', eng:'father\u2019s younger brother', note:'Younger uncles get numbered too: 二叔, 三叔…' },
+  '伯伯': { py:'bóbo', eng:'father\u2019s older brother', note:'Several? Rank by age: 大伯 (dàbó), 二伯 (èrbó)… Formal: 伯父 (bófù).' },
+  '叔叔': { py:'shūshu', eng:'father\u2019s younger brother', note:'Younger uncles get numbered too: 二叔 (èrshū), 三叔 (sānshū)…' },
   '姑姑': { py:'gūgu', eng:'father\u2019s sister', note:'If she\u2019s older than the father, many families say 姑妈 (gūmā).' },
-  '舅舅': { py:'jiùjiu', eng:'mother\u2019s brother', note:'Older or younger than mum — same word. Number them: 大舅, 二舅…' },
+  '舅舅': { py:'jiùjiu', eng:'mother\u2019s brother', note:'Older or younger than mum — same word. Number them: 大舅 (dàjiù), 二舅 (èrjiù)…' },
   '阿姨': { py:'āyí', eng:'mother\u2019s sister', note:'Older than the mother? Often 姨妈 (yímā).' },
   '伯母': { py:'bómǔ', eng:'伯伯\u2019s wife' },
   '婶婶': { py:'shěnshen', eng:'叔叔\u2019s wife' },
@@ -360,17 +361,17 @@ const T = {
   '女婿': { py:'nǚxu', eng:'daughter\u2019s husband', byName:true },
   '亲家公':{ py:'qìngjiāgōng', eng:'child\u2019s spouse\u2019s father', note:'The two families joined by a marriage are 亲家 (qìngjiā) — 亲 reads qìng here, not qīn.' },
   '亲家母':{ py:'qìngjiāmǔ', eng:'child\u2019s spouse\u2019s mother' },
-  '岳父': { py:'yuèfù', eng:'wife\u2019s father', addr:'Call him 爸爸 / 爸 in person.', note:'Colloquially 丈人 (zhàngren).' },
-  '岳母': { py:'yuèmǔ', eng:'wife\u2019s mother', addr:'Call her 妈妈 / 妈 in person.', note:'Colloquially 丈母娘 (zhàngmǔniáng).' },
-  '公公': { py:'gōnggong', eng:'husband\u2019s father', addr:'Call him 爸爸 / 爸 in person.', note:'Fun clash: in Cantonese, 公公 means maternal grandfather instead.' },
-  '婆婆': { py:'pópo', eng:'husband\u2019s mother', addr:'Call her 妈妈 / 妈 in person.', note:'…and Cantonese 婆婆 means maternal grandmother. Context is everything.' },
-  '大舅子':{ py:'dàjiùzi', eng:'wife\u2019s older brother', addr:'Address him as 哥 or by name.' },
+  '岳父': { py:'yuèfù', eng:'wife\u2019s father', addr:'Call him 爸爸 / 爸 (bàba / bà) in person.', note:'Colloquially 丈人 (zhàngren).' },
+  '岳母': { py:'yuèmǔ', eng:'wife\u2019s mother', addr:'Call her 妈妈 / 妈 (māma / mā) in person.', note:'Colloquially 丈母娘 (zhàngmǔniáng).' },
+  '公公': { py:'gōnggong', eng:'husband\u2019s father', addr:'Call him 爸爸 / 爸 (bàba / bà) in person.', note:'Fun clash: in Cantonese, 公公 means maternal grandfather instead.' },
+  '婆婆': { py:'pópo', eng:'husband\u2019s mother', addr:'Call her 妈妈 / 妈 (māma / mā) in person.', note:'…and Cantonese 婆婆 means maternal grandmother. Context is everything.' },
+  '大舅子':{ py:'dàjiùzi', eng:'wife\u2019s older brother', addr:'Address him as 哥 (gē) or by name.' },
   '小舅子':{ py:'xiǎojiùzi', eng:'wife\u2019s younger brother', addr:'Address him by name.' },
-  '大姨子':{ py:'dàyízi', eng:'wife\u2019s older sister', addr:'Address her as 姐 or by name.' },
+  '大姨子':{ py:'dàyízi', eng:'wife\u2019s older sister', addr:'Address her as 姐 (jiě) or by name.' },
   '小姨子':{ py:'xiǎoyízi', eng:'wife\u2019s younger sister', addr:'Address her by name.' },
-  '大伯子':{ py:'dàbǎizi', eng:'husband\u2019s older brother', addr:'Address him as 哥 or by name.', note:'Note the reading — 伯 is bǎi here, not bó.' },
+  '大伯子':{ py:'dàbǎizi', eng:'husband\u2019s older brother', addr:'Address him as 哥 (gē) or by name.', note:'Note the reading — 伯 is bǎi here, not bó.' },
   '小叔子':{ py:'xiǎoshūzi', eng:'husband\u2019s younger brother', addr:'Address him by name.' },
-  '大姑子':{ py:'dàgūzi', eng:'husband\u2019s older sister', addr:'Address her as 姐 or by name.' },
+  '大姑子':{ py:'dàgūzi', eng:'husband\u2019s older sister', addr:'Address her as 姐 (jiě) or by name.' },
   '小姑子':{ py:'xiǎogūzi', eng:'husband\u2019s younger sister', addr:'Address her by name.' },
 };
 
@@ -473,7 +474,7 @@ function term(vId, tId, deep){
         : (t.gender==='m' ? (older ? '大舅子' : '小舅子') : (older ? '大姨子' : '小姨子')) };
     }
     const viaS = term(s.id, t.id, true);
-    if (viaS) return { key: viaS.key, via: '跟着' + (v.gender==='m' ? '老婆' : '老公') + ' — follows your spouse\u2019s usage' };
+    if (viaS) return { key: viaS.key, via: '跟着 (gēnzhe) ' + (v.gender==='m' ? '老婆 lǎopó' : '老公 lǎogōng') + ' — follows your spouse\u2019s usage' };
   }
   return null;   /* no standard term */
 }
@@ -504,8 +505,10 @@ function nodeHTML(id){
   const p = P[id];
   return `<button class="node" id="node-${id}" onclick="tapNode('${id}')">
     <span class="nm">${p.name}</span>
+    <span class="pyname">${p.py}</span>
     <span class="meta">${p.age}岁${p.gender==='m'?' ♂':' ♀'}</span>
     <span class="term" id="term-${id}"></span>
+    <span class="termpy" id="termpy-${id}"></span>
   </button>`;
 }
 function buildUnit(u){
@@ -579,11 +582,13 @@ function renderTree(){
       tag = document.createElement('span'); tag.className = 'vtag'; tag.textContent = '视角 viewpoint';
       nodeEl.appendChild(tag);
     } else if (id !== viewer && tag) tag.remove();
-    if (id === viewer){ termEl.textContent = '我'; termEl.classList.remove('dim'); }
-    else if (hide && id !== selected){ termEl.textContent = '?'; termEl.classList.add('dim'); }
+    const pyEl = $('termpy-' + id);
+    if (id === viewer){ termEl.textContent = '我'; pyEl.textContent = 'wǒ'; termEl.classList.remove('dim'); }
+    else if (hide && id !== selected){ termEl.textContent = '?'; pyEl.textContent = ''; termEl.classList.add('dim'); }
     else {
       const r = term(viewer, id);
       termEl.textContent = r ? r.key : '—';
+      pyEl.textContent = r ? ((T[r.key]||{}).py || '') : '';
       termEl.classList.toggle('dim', !r);
     }
   });
@@ -593,16 +598,16 @@ function renderTree(){
 function renderEntry(){
   const e = $('entry');
   if (!selected){
-    e.innerHTML = `<p class="hint">Tap anyone on the tree to see what <span class="zh-inline">${P[viewer].name}</span> calls them —
+    e.innerHTML = `<p class="hint">Tap anyone on the tree to see what <span class="zh-inline">${P[viewer].name}</span> (${P[viewer].py}) calls them —
       then use "see the tree as…" to stand somewhere else.</p>
       <div class="seal" aria-hidden="true">称<br>谓</div>`;
     return;
   }
   const t = P[selected];
   const r = term(viewer, selected);
-  let h = `<p class="who"><span class="nm">${t.name}</span> · ${t.age}岁 · seen from <span class="nm">${P[viewer].name}</span></p>`;
+  let h = `<p class="who"><span class="nm">${t.name}</span> ${t.py} · ${t.age}岁 · seen from <span class="nm">${P[viewer].name}</span> ${P[viewer].py}</p>`;
   if (!r){
-    h += `<p class="term" style="font-size:24px;margin-top:6px">没有称呼 <span class="py">no standard term</span></p>
+    h += `<p class="term" style="font-size:24px;margin-top:6px">没有称呼 <span class="py">méiyǒu chēnghu · no standard term</span></p>
           <p class="note">These two aren\u2019t blood relatives — from this viewpoint they\u2019re just people whose relatives married each other (like your 伯伯 and your 舅舅). In practice: a name, or loosely following what the children say.</p>`;
   } else {
     const info = T[r.key] || {};
@@ -621,7 +626,7 @@ function renderEntry(){
     }
   }
   if (selected !== viewer)
-    h += `<button class="becomebtn" onclick="setViewer('${selected}')">换视角 · see the tree as <span class="zh-inline">${t.name}</span> →</button>`;
+    h += `<button class="becomebtn" onclick="setViewer('${selected}')">换视角 · see the tree as <span class="zh-inline">${t.name}</span> ${t.py} →</button>`;
   h += `<div class="seal" aria-hidden="true">称<br>谓</div>`;
   e.innerHTML = h;
 }
@@ -629,7 +634,7 @@ function renderEntry(){
 function tapNode(id){ selected = id; renderTree(); renderEntry(); }
 function setViewer(id){
   viewer = id; selected = null;
-  $('viewerName').textContent = P[id].name + (id === 'you' ? ' (你)' : '');
+  $('viewerName').textContent = P[id].name + ' · ' + P[id].py + (id === 'you' ? ' (你 nǐ)' : '');
   $('resetBtn').hidden = id === 'you';
   renderTree(); renderEntry();
 }
@@ -667,7 +672,7 @@ function nextQuestion(){
     if (!used.has(c)){ used.add(c); wrong.push(c); }
   }
   const opts = [currentQ.key, ...wrong].sort(() => Math.random() - 0.5);
-  $('qText').innerHTML = `<span class="zh-inline">${p.name}</span> is ${p.desc}. What do you call ${p.gender==='m' ? 'him' : 'her'}?`;
+  $('qText').innerHTML = `<span class="zh-inline">${p.name}</span> (${p.py}) is ${p.desc}. What do you call ${p.gender==='m' ? 'him' : 'her'}?`;
   $('qOpts').innerHTML = opts.map(k =>
     `<button class="opt" data-zh="${k}" onclick="answer(this)">
        <span class="hz">${k}</span><span class="py">${(T[k]||{}).py || ''}</span>
@@ -686,7 +691,7 @@ function answer(btn){
   });
   if (correct){
     streak++; if (streak > best) best = streak;
-    $('qMsg').innerHTML = `对了! Correct — <span class="zh-inline">${currentQ.key}</span> ${(T[currentQ.key]||{}).py || ''}.`;
+    $('qMsg').innerHTML = `对了 duì le! Correct — <span class="zh-inline">${currentQ.key}</span> ${(T[currentQ.key]||{}).py || ''}.`;
     $('qMsg').className = 'qmsg ok';
   } else {
     btn.classList.add('wrong'); streak = 0;
